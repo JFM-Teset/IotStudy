@@ -134,11 +134,11 @@
             <RunIndependent>0</RunIndependent>
             <UpdateFlashBeforeDebugging>1</UpdateFlashBeforeDebugging>
             <Capability>1</Capability>
-            <DriverSelection>4107</DriverSelection>
+            <DriverSelection>4101</DriverSelection>
           </Flash1>
           <bUseTDR>1</bUseTDR>
           <Flash2>STLink\ST-LINKIII-KEIL_SWO.dll</Flash2>
-          <Flash3></Flash3>
+          <Flash3>"" ()</Flash3>
           <Flash4></Flash4>
           <pFcarmOut></pFcarmOut>
           <pFcarmGrp></pFcarmGrp>
@@ -338,7 +338,7 @@
               <MiscControls></MiscControls>
               <Define>USE_HAL_DRIVER,STM32L475xx</Define>
               <Undefine></Undefine>
-              <IncludePath>../Inc;../Drivers/STM32L4xx_HAL_Driver/Inc;../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy;../Drivers/CMSIS/Device/ST/STM32L4xx/Include;../Drivers/CMSIS/Include;../Config/user</IncludePath>
+              <IncludePath>../Inc; ../Drivers/STM32L4xx_HAL_Driver/Inc; ../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy; ../Drivers/CMSIS/Device/ST/STM32L4xx/Include; ../Drivers/CMSIS/Include; ../Config/user</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -516,6 +516,26 @@
               <FileName>led.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\Config\user\led.h</FilePath>
+            </File>
+            <File>
+              <FileName>button.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\Config\user\button.h</FilePath>
+            </File>
+            <File>
+              <FileName>multi_button.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Config\user\multi_button.c</FilePath>
+            </File>
+            <File>
+              <FileName>multi_button.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\Config\user\multi_button.h</FilePath>
+            </File>
+            <File>
+              <FileName>button.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Config\user\button.c</FilePath>
             </File>
           </Files>
         </Group>

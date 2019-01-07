@@ -1,6 +1,6 @@
 /* Define to prevent recursive inclusion -------------------------------------*/
-#ifndef __led_H
-#define __led_H
+#ifndef __button_H
+#define __button_H
 #ifdef __cplusplus
  extern "C" {
 #endif
@@ -13,20 +13,26 @@
 /* USER CODE END Includes */
 
 /* USER CODE BEGIN Private defines */
-#define RledSwitch(a)     HAL_GPIO_WritePin(GPIOE, GPIO_PIN_7, a)	
-#define GledSwitch(a)     HAL_GPIO_WritePin(GPIOE, GPIO_PIN_8, a)	
-#define BledSwitch(a)     HAL_GPIO_WritePin(GPIOE, GPIO_PIN_9, a)	
+#define ReadKey2()    HAL_GPIO_ReadPin(GPIOD, GPIO_PIN_8)	
+#define ReadKey1()    HAL_GPIO_ReadPin(GPIOD, GPIO_PIN_9)	
+#define ReadKey0()    HAL_GPIO_ReadPin(GPIOD, GPIO_PIN_10)	
+#define ReadWakeUp()	HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_13)	
 
-#define RledToggle()  		HAL_GPIO_TogglePin(GPIOE,GPIO_PIN_7)
+
+
 /* USER CODE END Private defines */
 
 
 
 /* USER CODE BEGIN Prototypes */
+void useMultiButton(void);
+
+
 
 /* USER CODE END Prototypes */
 
 #ifdef __cplusplus
 }
 #endif
-#endif /*__ LED_H */
+#endif /*__ BUTTON_H */
+

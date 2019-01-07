@@ -45,6 +45,8 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "led.h"
+#include "multi_button.h"
+#include "button.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -108,22 +110,15 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   /* USER CODE BEGIN 2 */
-
+	useMultiButton();
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-		RledSwitch(0);
-		HAL_Delay(5100);
-		RledSwitch(1);
-		BledSwitch(0);
-		
-		GledSwitch(0);
-		HAL_Delay(5010);
-		GledSwitch(1);
-		BledSwitch(1);
+		HAL_Delay(5);
+		button_ticks();
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
