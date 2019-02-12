@@ -36,6 +36,8 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "stm32l4xx_it.h"
+#include "uart.h"
+#include "stdio.h"
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 /* USER CODE END Includes */
@@ -71,6 +73,8 @@
 /* USER CODE END 0 */
 
 /* External variables --------------------------------------------------------*/
+extern DMA_HandleTypeDef hdma_usart1_rx;
+extern UART_HandleTypeDef huart1;
 /* USER CODE BEGIN EV */
 
 /* USER CODE END EV */
@@ -211,7 +215,55 @@ void SysTick_Handler(void)
 /* please refer to the startup file (startup_stm32l4xx.s).                    */
 /******************************************************************************/
 
-/* USER CODE BEGIN 1 */
+/**
+  * @brief This function handles DMA1 channel5 global interrupt.
+  */
+void DMA1_Channel5_IRQHandler(void)
+{
+  /* USER CODE BEGIN DMA1_Channel5_IRQn 0 */
 
+  /* USER CODE END DMA1_Channel5_IRQn 0 */
+  HAL_DMA_IRQHandler(&hdma_usart1_rx);
+  /* USER CODE BEGIN DMA1_Channel5_IRQn 1 */
+
+  /* USER CODE END DMA1_Channel5_IRQn 1 */
+}
+
+/**
+  * @brief This function handles USART1 global interrupt.
+  */
+void USART1_IRQHandler(void)
+{
+  /* USER CODE BEGIN USART1_IRQn 0 */
+  uint32_t temp;
+  
+	if(huart1.Instance == USART1)		//???????1
+	{
+		if(__HAL_UART_GET_FLAG(&huart1,UART_FLAG_IDLE) != RESET)	//???????????
+		{
+			__HAL_UART_CLEAR_IDLEFLAG(&huart1);			//????????????
+			HAL_UART_DMAStop(&huart1);				//??DMA??
+			temp = __HAL_DMA_GET_COUNTER(&hdma_usart1_rx);	//?DMA ??? ?????
+			USART_Buffer_index = Buffer_Size - temp;	//??????????????????????
+			USART_Rx_OK = 1;				//?????????????
+		
+		}
+	
+	}
+	
+  /* USER CODE END USART1_IRQn 0 */
+  HAL_UART_IRQHandler(&huart1);
+  /* USER CODE BEGIN USART1_IRQn 1 */
+
+  /* USER CODE END USART1_IRQn 1 */
+}
+
+/* USER CODE BEGIN 1 */
+int fputc(int ch,FILE *f)
+{
+    uint8_t temp[1]={ch};
+    HAL_UART_Transmit(&huart1,temp,1,500);        //UartHandle??????
+		return temp[0];
+}
 /* USER CODE END 1 */
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

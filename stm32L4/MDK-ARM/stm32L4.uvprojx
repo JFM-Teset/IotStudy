@@ -312,7 +312,7 @@
           </ArmAdsMisc>
           <Cads>
             <interw>1</interw>
-            <Optim>4</Optim>
+            <Optim>1</Optim>
             <oTime>0</oTime>
             <SplitLS>0</SplitLS>
             <OneElfS>1</OneElfS>
@@ -338,7 +338,7 @@
               <MiscControls></MiscControls>
               <Define>USE_HAL_DRIVER,STM32L475xx</Define>
               <Undefine></Undefine>
-              <IncludePath>../Inc; ../Drivers/STM32L4xx_HAL_Driver/Inc; ../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy; ../Drivers/CMSIS/Device/ST/STM32L4xx/Include; ../Drivers/CMSIS/Include; ../Config/user</IncludePath>
+              <IncludePath>../Inc;   ../Drivers/STM32L4xx_HAL_Driver/Inc;   ../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy;   ../Drivers/CMSIS/Device/ST/STM32L4xx/Include;   ../Drivers/CMSIS/Include;   ../Config/user</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -403,6 +403,16 @@
               <FilePath>../Src/gpio.c</FilePath>
             </File>
             <File>
+              <FileName>dma.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>../Src/dma.c</FilePath>
+            </File>
+            <File>
+              <FileName>usart.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>../Src/usart.c</FilePath>
+            </File>
+            <File>
               <FileName>stm32l4xx_it.c</FileName>
               <FileType>1</FileType>
               <FilePath>../Src/stm32l4xx_it.c</FilePath>
@@ -426,6 +436,16 @@
               <FileName>stm32l4xx_hal_tim_ex.c</FileName>
               <FileType>1</FileType>
               <FilePath>../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_tim_ex.c</FilePath>
+            </File>
+            <File>
+              <FileName>stm32l4xx_hal_uart.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_uart.c</FilePath>
+            </File>
+            <File>
+              <FileName>stm32l4xx_hal_uart_ex.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_uart_ex.c</FilePath>
             </File>
             <File>
               <FileName>stm32l4xx_hal.c</FileName>
@@ -536,6 +556,21 @@
               <FileName>button.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\Config\user\button.c</FilePath>
+            </File>
+            <File>
+              <FileName>uart.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Config\user\uart.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Application/Config/DS</GroupName>
+          <Files>
+            <File>
+              <FileName>Queue.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Config\user\DataStructure\Queue.c</FilePath>
             </File>
           </Files>
         </Group>

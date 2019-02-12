@@ -40,6 +40,8 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
+#include "dma.h"
+#include "usart.h"
 #include "gpio.h"
 
 /* Private includes ----------------------------------------------------------*/
@@ -47,6 +49,8 @@
 #include "led.h"
 #include "multi_button.h"
 #include "button.h"
+#include "uart.h"
+#include "stdio.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -88,7 +92,7 @@ void SystemClock_Config(void);
 int main(void)
 {
   /* USER CODE BEGIN 1 */
-
+	uint8_t UgetMessage[1025]={0};
   /* USER CODE END 1 */
 
   /* MCU Configuration--------------------------------------------------------*/
@@ -109,8 +113,16 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
+  MX_DMA_Init();
+  MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
 	useMultiButton();
+	
+	
+	
+	//UMessageInit();
+	__HAL_UART_ENABLE_IT(&huart1, UART_IT_IDLE);    //??????
+  HAL_UART_Receive_DMA(&huart1,USART_RxBuffer,Buffer_Size);	//????DMA??,???????,???????
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -122,6 +134,24 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
+			if(USART_Rx_OK == 1)		//????????
+			{
+								int i=0;
+                //printf("%d",USART_Buffer_index);   //??????????
+                for( i=0;i<USART_Buffer_index;i++)
+                {
+									printf("%c",USART_RxBuffer[i]);		//??????
+                }
+                for(i=0;i<Buffer_Size;i++)			//?????,?????????????,?????
+								{
+									USART_RxBuffer[i] = 0;
+								}
+								USART_Buffer_index = 0;
+                USART_Rx_OK = 0;
+			}
+			HAL_UART_Receive_DMA(&huart1,USART_RxBuffer,Buffer_Size);	//????DMA??,???????????
+			
+		
   }
   /* USER CODE END 3 */
 }
@@ -134,6 +164,7 @@ void SystemClock_Config(void)
 {
   RCC_OscInitTypeDef RCC_OscInitStruct = {0};
   RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
+  RCC_PeriphCLKInitTypeDef PeriphClkInit = {0};
 
   /**Initializes the CPU, AHB and APB busses clocks 
   */
@@ -160,6 +191,12 @@ void SystemClock_Config(void)
   RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV1;
 
   if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_4) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  PeriphClkInit.PeriphClockSelection = RCC_PERIPHCLK_USART1;
+  PeriphClkInit.Usart1ClockSelection = RCC_USART1CLKSOURCE_PCLK2;
+  if (HAL_RCCEx_PeriphCLKConfig(&PeriphClkInit) != HAL_OK)
   {
     Error_Handler();
   }
