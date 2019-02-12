@@ -73,17 +73,17 @@ void USART1_IRQHandler(void)
 检测串口完成标志，如置位则进一步处理，这段程序可以放在主循环里，也可以放在定时器中断或者系统滴答中断里，如果放在中断里面执行，需要确保代码运行时间不要超过中断的总时长，以免影响中断功能。在中断里尽量少使用printf（）等运行时间长的函数。可以使用DMA发送函数来解决运行时长的问题。
 
 if(USART_Rx_OK == 1)		//串口传输结束标志
-        {
+{
                 printf("接收字符数量：%d\r\n",USART_Buffer_index);   //此次接收到了多少数据
                 for(i=0;i<USART_Buffer_index;i++)
                 {
-			printf("%c",USART_RxBuffer[i]);		//用户数据处理
+					printf("%c",USART_RxBuffer[i]);		//用户数据处理
                 }
                 for(i=0;i<Buffer_Size;i++)			//缓冲区清零，实际有准确的接收字符个数后，可以不清零
-		{
-			USART_RxBuffer[i] = 0;
-		}
-		USART_Buffer_index = 0;
+				{
+					USART_RxBuffer[i] = 0;
+				}
+				USART_Buffer_index = 0;
                 USART_Rx_OK = 0;
-        }
+}
 HAL_UART_Receive_DMA(&huart1,USART_RxBuffer,Buffer_Size);	//打开串口DMA接收，为接收下一帧数据做准备
